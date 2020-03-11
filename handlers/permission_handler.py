@@ -1,3 +1,4 @@
+from modules import split_text_to_scope
 
 class PermissionHandler(object):
 
@@ -13,6 +14,7 @@ class PermissionHandler(object):
 
         for key, value in self.__parse.items():
             value_length = len(value)
+            self.__determine_line = value[-1][-1]
 
             if value_length == 2:
                 self.strict_scope(key, value)
@@ -25,10 +27,15 @@ class PermissionHandler(object):
     # Determine the scope of the <!#x>Text<!#>
     def strict_scope(self, parameter, scope):
         print("Strict", parameter)
+        print(self.cleaned_data[self.__determine_line])
 
     # Determine the scope for the hole line
     def line_scope(self, parameter, scope):
-        print("Line", parameter)
+        # print("Line", parameter)
+        # print(self.cleaned_data[self.__determine_line])
+        # if parameter == "title":
+            # self.change_properties()
+        pass
 
     # Determine the global scope and dictates the default properties
     def global_scope(self, raw_parameter, scope):
@@ -39,6 +46,7 @@ class PermissionHandler(object):
         default = "default_{}".format(clean_parameter)
         self.properties[default] = clean_value
 
-test_dict = {'<!#~font "Arial">': [(0, 15, 0)], '<!#~page_count>': [(0, 13, 1)], '<!#title>': [(0, 8, 3)], '<!#color "red">': [(14, 28, 3), (33, 36, 3)]}
-a = PermissionHandler(test_dict)
-a.permissions()
+
+# test_dict = {'<!#~font "Arial">': [(0, 15, 0)], '<!#~page_count>': [(0, 13, 1)], '<!#title>': [(0, 8, 3)], '<!#color "red">': [(14, 28, 3), (33, 36, 3)]}
+# a = PermissionHandler(test_dict)
+# a.permissions()

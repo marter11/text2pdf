@@ -42,4 +42,9 @@ class ParseTokens(object):
 
                 difference = difference+close+1
 
+        # DEBUG:
+        # self.parsed - nem lehet ugyanabbol a fajtabol tobbet tarolni azert, mert
+        # a hash table minden egyes key set utan overrideli a redi keyt
+        # How to give font and color to the same part of text
+
         return cleaned_data

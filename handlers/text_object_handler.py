@@ -1,5 +1,5 @@
-from reportlab.pdfgen import canvas
 from handlers.text_properties_handler import TextPropertiesWrapper
+from reportlab.pdfgen import canvas
 
 class PDFHandler(TextPropertiesWrapper):
 
@@ -19,30 +19,24 @@ class PDFHandler(TextPropertiesWrapper):
         current_line = 0
         properties = self.properties
 
-        print("Test:", self.properties["default_left"], self.properties["default_font_size"])
-
         file_name = "".join(self.name.split(".")[:-1])+".pdf"
         handler = canvas.Canvas(file_name)
 
         # If using without control use the same subroutine just split the text
         # After line break l.setTextOrigin(50, pervious-line_height)
 
+
+        self.textObject = handler.beginText()
         while lines_length > current_line:
-            textObject = handler.beginText()
+            # Add page loadness (if bigger than x start new page)
 
             # Change properties["xy"] to line_scope and strict_scope friendly
-            textObject.setTextOrigin(int(properties["default_left"]), int(properties["default_top"])-(int(properties["default_line_height"])*current_line))
-            textObject.textOut(self.cleaned_data[current_line])
+            self.textObject.setTextOrigin(int(properties["default_left"]), int(properties["default_top"])-(int(properties["default_line_height"])*current_line))
 
-            handler.drawText(textObject)
+            self.textObject.textOut(self.cleaned_data[current_line])
+            # self.strict_scope("fafa", 3)
+            handler.drawText(self.textObject)
+
             current_line += 1
 
         handler.save()
-        # l.setTextOrigin(50, 730)
-        # l.textOut("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        # l.setTextOrigin(50, 720)
-        # l.textOut("ABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABC")
-        # l.setTextOrigin(50, 710)
-        # l.textOut("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-        # handler.drawText(l)
-        # handler.save()
