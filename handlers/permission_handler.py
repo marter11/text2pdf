@@ -6,13 +6,10 @@ class PermissionHandler(object):
     Describe permissions and scope of parsed tokens.
     """
 
-    # DEBUG: with or without control
-    def __init__(self, parsed):
-        self.__parse = parsed
-
+    # DEBUG: with out withot controll
     def permissions(self):
 
-        for key, value in self.__parse.items():
+        for key, value in self.parsed.items():
             value_length = len(value)
             self.__determine_line = value[-1][-1]
 
@@ -24,18 +21,31 @@ class PermissionHandler(object):
                 else:
                     self.line_scope(key, value)
 
+    def common_scope_parameters(self, parameter, type):
+        values = parameter.split(" ")
+        if len(values) == 2:
+            key = values[0][3:]
+            value = values[1][:-1]
+            dict = self.apply[self.__determine_line]
+            if dict.get(type):
+                dict[type][key] = value
+            else:
+                self.apply[self.__determine_line] = {type: {key: value}}
+
+
     # Determine the scope of the <!#x>Text<!#>
     def strict_scope(self, parameter, scope):
         print("Strict", parameter)
-        print(self.cleaned_data[self.__determine_line])
+        # print(self.cleaned_data[self.__determine_line])
 
     # Determine the scope for the hole line
     def line_scope(self, parameter, scope):
-        # print("Line", parameter)
-        # print(self.cleaned_data[self.__determine_line])
-        # if parameter == "title":
-            # self.change_properties()
-        pass
+
+        # Special line scope parameters
+        if parameter == "<!#title>":
+            self.apply[self.__determine_line] = {"line": {"left": 250}}
+
+        self.common_scope_parameters(parameter, "line")
 
     # Determine the global scope and dictates the default properties
     def global_scope(self, raw_parameter, scope):

@@ -10,7 +10,7 @@ class TextPropertiesWrapper(PermissionHandler):
     def __init__(self):
         self.properties = {
             "default_left": 50,
-            "default_top": 730,
+            "default_top": 800,
             "default_line_height": 10,
             "default_font_family": "Arial",
             "default_font_color": "black",
@@ -23,11 +23,27 @@ class TextPropertiesWrapper(PermissionHandler):
             "font_color": 0,
             "font_size": 0,
         }
-        super().__init__(self.parsed)
+
+        self.apply = {}
+
         super().permissions()
 
     # Change properties for a selected text section
     # After the changeing set back to the default values
     # So the others won't be affected
-    def change_properties(self, object, text, changes):
-        print("RUN")
+    def change_properties(self, object, current_line):
+        current_appliable = self.apply.get(current_line)
+
+        if current_appliable:
+            line = current_appliable.get("line")
+            if line:
+                left = line.get("left", self.properties["default_left"])
+                top = line.get("top", self.properties["default_top"]-(int(self.properties["default_line_height"])*current_line))
+                font_color = line.get("font_color", self.properties["default_font_color"])
+
+                object.setTextOrigin(int(left), int(top))
+                object.setFillColor(font_color)
+
+                print(font_color, top, left)
+
+        return object
