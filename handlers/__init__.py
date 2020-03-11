@@ -1,0 +1,4 @@
+from handlers.file_handler import FileHandler
+from handlers.text_object_handler import PDFHandler
+from handlers.text_properties_handler import TextPropertiesWrapper
+from handlers.permission_handler import PermissionHandler
