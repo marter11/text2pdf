@@ -1,4 +1,4 @@
-from modules.process_modules import get_last_key_in_dict
+# from modules.process_modules import get_last_key_in_dict
 
 class ParseTokens(object):
 
@@ -14,6 +14,7 @@ class ParseTokens(object):
     # Parse data and dump it to an easily readable dict
     def parse(self):
         cleaned_data = self._data.splitlines()
+        unique_index = 0
 
         for i in range(0, len(cleaned_data)):
             e = cleaned_data[i]
@@ -30,18 +31,20 @@ class ParseTokens(object):
                 if check > -1:
                     item = e[start+difference:close+difference+1]
                     if item == "<!#>":
-                        key = get_last_key_in_dict(self.parsed)
-                        self.parsed[key].append((start+difference, close+difference, i))
+                        self.parsed[unique_index-1][-1].append((start+difference, close+difference, i))
                     else:
 
                         # (start_tag, close_tag, line_index)
-                        self.parsed[item] = [(start+difference, close+difference, i)]
+                        self.parsed[unique_index] = [item, [(start+difference, close+difference, i)]]
+                        unique_index += 1
+
 
                     # Set cleaned tex data (without parameters)
                     cleaned_data[i] = cleaned_data[i].replace(item, "")
 
                 difference = difference+close+1
 
+        # print(self.parsed)
         # DEBUG:
         # self.parsed - nem lehet ugyanabbol a fajtabol tobbet tarolni azert, mert
         # a hash table minden egyes key set utan overrideli a redi keyt

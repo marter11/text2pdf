@@ -44,6 +44,4 @@ class TextPropertiesWrapper(PermissionHandler):
                 object.setTextOrigin(int(left), int(top))
                 object.setFillColor(font_color)
 
-                print(font_color, top, left)
-
         return object
