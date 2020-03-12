@@ -1,0 +1,7 @@
+<!#~left 50>
+<!#~font_size 20>
+<!#~line_height 20>
+
+Work <!#color red>here<!#> as me!
+<!#color red>The new season<!#> started at <!#font_size, color 10, blue>2012<!#> Jan and I instantly started to work on new projects.
+<!#title><!#font_color red>But who knows what will the future brings to us.
