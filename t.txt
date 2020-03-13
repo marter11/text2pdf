@@ -1,7 +1,75 @@
-<!#~left 50>
-<!#~font_size 20>
-<!#~line_height 25>
-<!#~font_color red>
+<!#~font_size 12>
+<!#~font_color black>
+<!#~line_height 20>
 
-About me
-So start here
+<!#title><!#font_size 18>About me
+
+I love sports! Yeah, <!#font_color red>but really<!#> this is not like an usually thing. Not least not in the usual way.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
+Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
+<!#font_color green>Nunc hendrerit leo in orci vulputate, et pretium nisi fringilla.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
+Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
+
+
+                            <!#font_color red>"Nulla pretium orci nec odio egestas, id laoreet sem suscipit.
+                            <!#font_color red>Pellentesque suscipit sem at purus scelerisque consequat.
+                            <!#font_color red>Sed id metus posuere, dapibus libero eu, dictum odio.
+                            <!#font_color red>Duis nec turpis ac urna posuere facilisis non vulputate felis.
+                            <!#font_color red>Suspendisse pulvinar dolor at varius aliquet.
+                            <!#font_color red>Etiam a augue at neque scelerisque malesuada."
+
+
+Phasellus eleifend justo pharetra, elementum sapien a, vehicula nibh.
+Vestibulum eu orci sed augue egestas lobortis posuere bibendum nisl.
+Phasellus feugiat arcu sit amet purus luctus, vitae volutpat lacus scelerisque.
+Nunc ullamcorper orci id tristique tempor.
+
+Quisque eu augue posuere, venenatis eros in, sagittis velit.
+Nulla dapibus ligula in urna rutrum, non interdum tellus sagittis.
+Aliquam sed arcu tincidunt, scelerisque dolor fermentum, rhoncus eros.
+
+This thing works!
+
+Nunc hendrerit leo in orci vulputate, et pretium nisi fringilla.
+Integer finibus tellus vitae elit pellentesque gravida.
+Duis at turpis nec justo vehicula scelerisque. igen
+Vestibulum euismod libero quis mi dignissim viverra.
+Fusce vestibulum enim nec ex faucibus viverra.
+Nulla in massa ullamcorper, ullamcorper erat sit amet, porta tortor.
+
+Nulla pretium orci nec odio egestas, id laoreet sem suscipit.
+Pellentesque suscipit sem at purus scelerisque consequat.
+Sed id metus posuere, dapibus libero eu, dictum odio.
+<!#font_color blue>Duis nec turpis ac urna posuere facilisis non vulputate felis.
+Suspendisse pulvinar dolor at varius aliquet.
+Etiam a augue at neque scelerisque malesuada.
+
+Phasellus eleifend justo pharetra, elementum sapien a, vehicula nibh.
+Vestibulum eu orci sed augue egestas lobortis posuere bibendum nisl.
+Phasellus feugiat arcu sit amet purus luctus, vitae volutpat lacus scelerisque.
+Nunc ullamcorper orci id tristique tempor.
+
+<!#title>New thestament
+
+newline_top = int(properties["default_top"])-(int(properties["default_line_height"])*down_by_current_line)
+
+I love sports! Yeah, <!#font_color red>but really<!#> this is not like an usually thing. Not least not in the usual way.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
+Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
+<!#font_color green>Nunc hendrerit leo in orci vulputate, et pretium nisi fringilla.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
+Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
+
+Nulla pretium orci nec odio egestas, id laoreet sem suscipit.
+Pellentesque suscipit sem at purus scelerisque consequat.
+Sed id metus posuere, dapibus libero eu, dictum odio.
+Duis nec turpis ac urna posuere facilisis non vulputate felis.
+Suspendisse pulvinar dolor at varius aliquet.
+Etiam a augue at neque scelerisque malesuada.
+
+
+Phasellus eleifend justo pharetra, elementum sapien a, vehicula nibh.
+Vestibulum eu orci sed augue egestas lobortis posuere bibendum nisl.
+Phasellus feugiat arcu sit amet purus luctus, vitae volutpat lacus scelerisque.
+Nunc ullamcorper orci id tristique tempor.

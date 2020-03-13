@@ -25,7 +25,7 @@ class PermissionHandler(object):
                     self.line_scope(key, value)
 
     # Common parameters for line and for strict also
-    def common_scope_parameters(self, parameter, type):
+    def common_scope_parameters(self, parameter, type, set_to):
 
         values = parameter.split(" ")
 
@@ -35,8 +35,10 @@ class PermissionHandler(object):
 
             # If exists for example: <!#font_color><!#title>
             # Store the same lined inline
-            if len(self.apply) > 0:
+
+            if len(self.apply) > 0 and self.apply.get(set_to):
                 current_full = self.parsed[self.__determine_line]
+
                 self_apply_contains_check_index = current_full[-1][-1][-1]
                 contains = self.apply.get(self_apply_contains_check_index)
 
@@ -47,21 +49,33 @@ class PermissionHandler(object):
                 else:
                     pass
 
-            elif len(self.apply) == 0:
-                self.apply[self.__determine_line] = {type: {key: value}}
+            else:
+                self.apply[set_to] = {type: {key: value}}
 
     # Determine the scope of the <!#x>Text<!#>
     def strict_scope(self, parameter, scope):
+        set_to = self.parsed[self.__determine_line][-1][-1][-1]
         pass
 
     # Determine the scope for the hole line
     def line_scope(self, parameter, scope):
 
+        set_to = self.parsed[self.__determine_line][-1][-1][-1]
+
         # Special line scope parameters
         if parameter == "<!#title>":
-            self.apply[self.__determine_line] = {"line": {"left": 250}}
+
+            # DEBUG: Wite module to check with the self.xy.get() if yes do this else do that
+            if self.apply.get(set_to):
+                self.apply[set_to]["line"]["left"] = 250
+            else:
+                self.apply[set_to] = {"line": {"left": 250}}
+        elif parameter == "<!#new_page>":
+            print(parameter)
+            pass
         else:
-            self.common_scope_parameters(parameter, "line")
+            # print(set_to, self.parsed[self.__determine_line], "From line scope")
+            self.common_scope_parameters(parameter, "line", set_to)
 
     # Determine the global scope and dictates the default properties
     def global_scope(self, raw_parameter, scope):
