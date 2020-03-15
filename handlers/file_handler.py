@@ -27,7 +27,7 @@ class FileHandler(TextFileHandler, PDFHandler):
 
     def setup_pdf_processing(self, raw_text):
         object = ParseTokens(raw_text)
-        self.cleaned_data = object.parse()
+        self.cleaned_data, self.data = object.parse()
         self.parsed = object.parsed
 
         return self

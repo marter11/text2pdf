@@ -1,4 +1,3 @@
-# from modules.process_modules import get_last_key_in_dict
 
 class ParseTokens(object):
 
@@ -13,7 +12,9 @@ class ParseTokens(object):
 
     # Parse data and dump it to an easily readable dict
     def parse(self):
-        cleaned_data = self._data.splitlines()
+
+        data = self._data.splitlines()
+        cleaned_data = list(data)
         unique_index = 0
 
         for i in range(0, len(cleaned_data)):
@@ -44,10 +45,6 @@ class ParseTokens(object):
 
                 difference = difference+close+1
 
-        # print(self.parsed)
         # DEBUG:
-        # self.parsed - nem lehet ugyanabbol a fajtabol tobbet tarolni azert, mert
-        # a hash table minden egyes key set utan overrideli a redi keyt
         # How to give font and color to the same part of text
-
-        return cleaned_data
+        return (cleaned_data, data)

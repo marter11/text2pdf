@@ -24,18 +24,20 @@ class PDFHandler(TextPropertiesWrapper):
 
         # If using without control use the same subroutine just split the text
         # After line break l.setTextOrigin(50, pervious-line_height)
-
         while lines_length > current_line:
 
             # Add page loadness (if bigger than x start new page)
-            # On new page create new handler.beginText()
-
-            # DEBUG: current line is left over by n+1 and the n+1 line's parameter affect the n-th line
-            # especially when define global parameters
             newline_top = int(properties["default_top"])-(int(properties["default_line_height"])*down_by_current_line)
 
-            if newline_top < 100:
-                # handler.drawText(self.textObject)
+            # Open new page if neccessary
+            new_page = False
+            current_line_check = self.apply.get(current_line)
+            if current_line_check:
+                line_check = current_line_check.get("line")
+                if line_check:
+                    new_page = line_check.get("new_page")
+
+            if newline_top < 100 or new_page:
                 handler.showPage()
                 self.textObject = handler.beginText()
                 self.properties["default_top"] = 800
@@ -49,10 +51,10 @@ class PDFHandler(TextPropertiesWrapper):
 
             self.textObject = self.change_properties(self.textObject, current_line, down_by_current_line)
             self.textObject.textOut(self.cleaned_data[current_line])
+
             handler.drawText(self.textObject)
 
             current_line += 1
             down_by_current_line += 1
 
-        print(self.apply)
         handler.save()

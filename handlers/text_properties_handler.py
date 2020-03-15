@@ -36,6 +36,9 @@ class TextPropertiesWrapper(PermissionHandler):
 
         if current_appliable:
             line = current_appliable.get("line")
+            strict = current_appliable.get("strict")
+
+            # Set properties to the full line
             if line:
                 left = line.get("left", self.properties["default_left"])
                 top = line.get("top", self.properties["default_top"]-(int(self.properties["default_line_height"])*down_by_current_line))
@@ -43,11 +46,21 @@ class TextPropertiesWrapper(PermissionHandler):
                 font_size = line.get("font_size", self.properties["default_font_size"])
                 font_family = line.get("font_family", self.properties["default_font_family"])
 
-                print(current_appliable, line.get("top"))
-                print(top)
-
                 object.setTextOrigin(int(left), int(top))
                 object.setFillColor(font_color)
                 object.setFont(font_family, int(font_size))
+
+            # Set properties only to specific scope
+            # Important! Strict specified only accepts non cleaned_data because it compares
+            # to <!#parameter> values also, lexer doesen't remove them while count it
+            if strict:
+                current_line_text = self.data[current_line]
+                current_line_clean_text = self.cleaned_data[current_line]
+
+                for key, value in strict.items():
+                    count_from = 0
+
+                    font_color, scope = value.get("font_color", self.properties["default_font_color"])
+                    print(scope)
 
         return object

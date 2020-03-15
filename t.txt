@@ -4,8 +4,8 @@
 
 <!#title><!#font_size 18>About me
 
-I love sports! Yeah, <!#font_color red>but really<!#> this is not like an usually thing. Not least not in the usual way.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
+<!#title>I love sports! Yeah, but <!#font_color yellow>really<!#> this is <!#font_color brown>not<!#> like an usually thing. an usuallyNot least not in the usual way.
+Lorem ipsum dolor sit amet, <!#font_color yellow, font_size 50>consectetur adipiscing elit.<!#> Duis at turpis nec justo vehicula scelerisque.
 Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
 <!#font_color green>Nunc hendrerit leo in orci vulputate, et pretium nisi fringilla.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
@@ -54,13 +54,14 @@ Nunc ullamcorper orci id tristique tempor.
 
 newline_top = int(properties["default_top"])-(int(properties["default_line_height"])*down_by_current_line)
 
-I love sports! Yeah, <!#font_color red>but really<!#> this is not like an usually thing. Not least not in the usual way.
+Not the same <!#font_color red>but really<!#> this is not like an usually thing. Not least not in the usual way.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
 Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
 <!#font_color green>Nunc hendrerit leo in orci vulputate, et pretium nisi fringilla.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at turpis nec justo vehicula scelerisque.
 Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
 
+<!#new_page>
 Nulla pretium orci nec odio egestas, id laoreet sem suscipit.
 Pellentesque suscipit sem at purus scelerisque consequat.
 Sed id metus posuere, dapibus libero eu, dictum odio.

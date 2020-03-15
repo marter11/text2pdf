@@ -25,7 +25,7 @@ class PermissionHandler(object):
                     self.line_scope(key, value)
 
     # Common parameters for line and for strict also
-    def common_scope_parameters(self, parameter, type, set_to):
+    def common_scope_parameters(self, parameter, type, set_to, scope=None):
 
         values = parameter.split(" ")
 
@@ -35,7 +35,6 @@ class PermissionHandler(object):
 
             # If exists for example: <!#font_color><!#title>
             # Store the same lined inline
-
             if len(self.apply) > 0 and self.apply.get(set_to):
                 current_full = self.parsed[self.__determine_line]
 
@@ -44,18 +43,32 @@ class PermissionHandler(object):
 
                 if contains:
                     data = contains.get(type)
-                    self.apply[self_apply_contains_check_index][type][key] = value
+
+                    if type == "strict":
+                        if self.apply[self_apply_contains_check_index].get(type):
+                            self.apply[self_apply_contains_check_index][type][self.__determine_line] = {key: [value, scope]}
+
+                        else:
+                            self.apply[self_apply_contains_check_index][type] = {self.__determine_line:{key: [value, scope]}}
+
+                    elif type == "line":
+                        self.apply[self_apply_contains_check_index][type][key] = value
 
                 else:
                     pass
 
             else:
-                self.apply[set_to] = {type: {key: value}}
+                if type == "strict":
+                    self.apply[set_to] = {type: {self.__determine_line: {key: [value, scope]}}}
 
-    # Determine the scope of the <!#x>Text<!#>
+                elif type == "line":
+                    self.apply[set_to] = {type: {key: value}}
+
+
+    # Determine the scope of the <!#parameter>Text<!#>
     def strict_scope(self, parameter, scope):
         set_to = self.parsed[self.__determine_line][-1][-1][-1]
-        pass
+        self.common_scope_parameters(parameter, "strict", set_to, [scope[-1][0][1], scope[-1][-1][0]])
 
     # Determine the scope for the hole line
     def line_scope(self, parameter, scope):
@@ -65,16 +78,18 @@ class PermissionHandler(object):
         # Special line scope parameters
         if parameter == "<!#title>":
 
-            # DEBUG: Wite module to check with the self.xy.get() if yes do this else do that
+            # DEBUG: Write module to check with the self.xy.get() if yes do this else do that
             if self.apply.get(set_to):
                 self.apply[set_to]["line"]["left"] = 250
             else:
                 self.apply[set_to] = {"line": {"left": 250}}
+
         elif parameter == "<!#new_page>":
-            print(parameter)
-            pass
+            if self.apply.get(set_to):
+                self.apply[set_to]["line"]["new_page"] = True
+            else:
+                self.apply[set_to] = {"line": {"new_page": True}}
         else:
-            # print(set_to, self.parsed[self.__determine_line], "From line scope")
             self.common_scope_parameters(parameter, "line", set_to)
 
     # Determine the global scope and dictates the default properties
