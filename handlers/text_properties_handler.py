@@ -1,4 +1,5 @@
 from handlers.permission_handler import PermissionHandler
+from modules import split_text_to_scope
 
 class TextPropertiesWrapper(PermissionHandler):
 
@@ -16,12 +17,12 @@ class TextPropertiesWrapper(PermissionHandler):
             "default_font_color": "black",
             "default_font_size": 10,
 
-            "left": 0,
-            "top": 0,
-            "line_height": 0,
-            "font_family": 0,
-            "font_color": 0,
-            "font_size": 0,
+            "left": None,
+            "top": None,
+            "line_height": None,
+            "font_family": None,
+            "font_color": None,
+            "font_size": None,
         }
 
         self.apply = {}
@@ -46,21 +47,50 @@ class TextPropertiesWrapper(PermissionHandler):
                 font_size = line.get("font_size", self.properties["default_font_size"])
                 font_family = line.get("font_family", self.properties["default_font_family"])
 
+                self.properties["font_color"] = font_color
+
                 object.setTextOrigin(int(left), int(top))
                 object.setFillColor(font_color)
                 object.setFont(font_family, int(font_size))
 
             # Set properties only to specific scope
-            # Important! Strict specified only accepts non cleaned_data because it compares
-            # to <!#parameter> values also, lexer doesen't remove them while count it
             if strict:
-                current_line_text = self.data[current_line]
+                self.text_out = False
+
                 current_line_clean_text = self.cleaned_data[current_line]
+                save_properties_state = self.properties
+                separated_shift_difference = 0
+                l = len(strict)
+                c = 0
 
                 for key, value in strict.items():
-                    count_from = 0
-
                     font_color, scope = value.get("font_color", self.properties["default_font_color"])
-                    print(scope)
+                    separated_segments, separated_shift_difference, affected_item_index = split_text_to_scope(scope, current_line_clean_text, separated_shift_difference)
+
+                    if c < l-1:
+                        to = -1
+                    else:
+                        to = len(separated_segments)
+
+                    # Handle separetly the affected items and the non-affected ones
+                    iterate_over = len(separated_segments[:to])
+                    for item_index in range(iterate_over):
+
+                        if item_index == affected_item_index:
+                            font_color = value.get("font_color", ["black"])[0]
+                            # top = line.get("top", self.properties["default_top"]-(int(self.properties["default_line_height"])*down_by_current_line))
+                            # left = line.get("left", self.properties["default_left"])
+                            object.setFillColor(font_color)
+                            object.textOut(separated_segments[item_index])
+
+                        else:
+                            font_color = self.properties.get("font_color", self.properties["default_font_color"])
+                            object.setFillColor(font_color)
+                            object.textOut(separated_segments[item_index])
+
+                        self.properies = save_properties_state
+
+                    current_line_clean_text = separated_segments[-1]
+                    c += 1
 
         return object

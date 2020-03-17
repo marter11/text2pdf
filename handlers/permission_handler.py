@@ -68,7 +68,7 @@ class PermissionHandler(object):
     # Determine the scope of the <!#parameter>Text<!#>
     def strict_scope(self, parameter, scope):
         set_to = self.parsed[self.__determine_line][-1][-1][-1]
-        self.common_scope_parameters(parameter, "strict", set_to, [scope[-1][0][1], scope[-1][-1][0]])
+        self.common_scope_parameters(parameter, "strict", set_to, [scope[-1][0][0], scope[-1][-1][0]])
 
     # Determine the scope for the hole line
     def line_scope(self, parameter, scope):

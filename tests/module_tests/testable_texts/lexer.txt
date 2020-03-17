@@ -1,0 +1,10 @@
+<!#~font_color red>
+<!#~font_size 50>
+
+
+<!#title>This is the title section
+
+Clean field here without loerm ipsum
+<!#font_color blue>And this is <!#font_color green>also a cool thing<!#> so yeah.
+<!#font_size 50> To the full text
+End of the text file.

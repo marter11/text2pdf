@@ -15,36 +15,48 @@ class ParseTokens(object):
 
         data = self._data.splitlines()
         cleaned_data = list(data)
+        act_dat = list(data)
         unique_index = 0
+        filter_white_global_lines = []
 
         for i in range(0, len(cleaned_data)):
             e = cleaned_data[i]
-            e = e.strip()
-            iterate = str(e)
+            text_segment_without_parameters_parse = [x for x in cleaned_data[i]]
             check, difference = 0, 0
 
             while check > -1:
+                iterate = "".join(text_segment_without_parameters_parse)
                 start = iterate.find("<!#")
                 close = iterate.find(">")
-                iterate = iterate[close+1:]
                 check = start
 
                 if check > -1:
-                    item = e[start+difference:close+difference+1]
+                    item = iterate[start:close+1]
+
                     if item == "<!#>":
-                        self.parsed[unique_index-1][-1].append((start+difference, close+difference, i))
+                        self.parsed[unique_index-1][-1].append((start, close, i))
+
                     else:
 
                         # (start_tag, close_tag, line_index)
-                        self.parsed[unique_index] = [item, [(start+difference, close+difference, i)]]
-                        unique_index += 1
+                        self.parsed[unique_index] = [item, [(start, close, i)]]
 
+                    text_segment_without_parameters_parse[start:close+1] = ""
+                    replaced_part = "".join(text_segment_without_parameters_parse)
 
-                    # Set cleaned tex data (without parameters)
-                    cleaned_data[i] = cleaned_data[i].replace(item, "")
+                    if replaced_part == "":
+                        filter_white_global_lines.append(i)
 
-                difference = difference+close+1
+                    cleaned_data[i] = "".join(text_segment_without_parameters_parse)
+
+                    unique_index += 1
+
+        # Remove empty lines after parameters removed
+        for index in filter_white_global_lines:
+            cleaned_data.pop(index)
 
         # DEBUG:
         # How to give font and color to the same part of text
+        # Idea, just use <!#parameter1 value1, parameter2 value2>
+
         return (cleaned_data, data)

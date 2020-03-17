@@ -12,7 +12,6 @@ class PDFHandler(TextPropertiesWrapper):
         self.__parsed_tokens = parsed_tokens
 
     def write_pdf(self):
-
         file_name = "".join(self.name.split(".")[:-1])+".pdf"
         handler = canvas.Canvas(file_name)
         self.textObject = handler.beginText()
@@ -25,6 +24,8 @@ class PDFHandler(TextPropertiesWrapper):
         # If using without control use the same subroutine just split the text
         # After line break l.setTextOrigin(50, pervious-line_height)
         while lines_length > current_line:
+
+            self.text_out = True
 
             # Add page loadness (if bigger than x start new page)
             newline_top = int(properties["default_top"])-(int(properties["default_line_height"])*down_by_current_line)
@@ -50,7 +51,11 @@ class PDFHandler(TextPropertiesWrapper):
             self.textObject.setFont(self.properties["default_font_family"], int(self.properties["default_font_size"]))
 
             self.textObject = self.change_properties(self.textObject, current_line, down_by_current_line)
-            self.textObject.textOut(self.cleaned_data[current_line])
+
+            if self.text_out:
+                self.textObject.textOut(self.cleaned_data[current_line])
+            else:
+                pass
 
             handler.drawText(self.textObject)
 

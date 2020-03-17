@@ -4,7 +4,7 @@
 
 <!#title><!#font_size 18>About me
 
-<!#title>I love sports! Yeah, but <!#font_color yellow>really<!#> this is <!#font_color brown>not<!#> like an usually thing. an usuallyNot least not in the usual way.
+<!#title><!#font_color red>I <!#font_color orange>love<!#> sports! Yeah, but <!#font_color yellow>really<!#> this is <!#font_color brown>not<!#> like an usually thing. an usuallyNot least not in the usual way.
 Lorem ipsum dolor sit amet, <!#font_color yellow, font_size 50>consectetur adipiscing elit.<!#> Duis at turpis nec justo vehicula scelerisque.
 Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
 <!#font_color green>Nunc hendrerit leo in orci vulputate, et pretium nisi fringilla.
@@ -20,8 +20,8 @@ Nam hendrerit dolor ac arcu pulvinar dignissim vitae sed lectus.
                             <!#font_color red>Etiam a augue at neque scelerisque malesuada."
 
 
-Phasellus eleifend justo pharetra, elementum sapien a, vehicula nibh.
-Vestibulum eu orci sed augue egestas lobortis posuere bibendum nisl.
+<!#font_color red>Phasellus eleifend justo pharetra,<!#> elementum sapien a, vehicula nibh.
+<!#font_color green>Vestibulum <!#font_color blue>eu<!#> orci <!#font_color red>sed augue egestas<!#> lobortis posuere bibendum nisl.
 Phasellus feugiat arcu sit amet purus luctus, vitae volutpat lacus scelerisque.
 Nunc ullamcorper orci id tristique tempor.
 
