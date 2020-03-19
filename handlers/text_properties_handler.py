@@ -17,12 +17,12 @@ class TextPropertiesWrapper(PermissionHandler):
             "default_font_color": "black",
             "default_font_size": 10,
 
-            "left": None,
-            "top": None,
-            "line_height": None,
-            "font_family": None,
-            "font_color": None,
-            "font_size": None,
+            # "left": None,
+            # "top": None,
+            # "line_height": None,
+            # "font_family": None,
+            # "font_color": None,
+            # "font_size": None,
         }
 
         self.apply = {}
@@ -64,7 +64,11 @@ class TextPropertiesWrapper(PermissionHandler):
                 c = 0
 
                 for key, value in strict.items():
-                    font_color, scope = value.get("font_color", self.properties["default_font_color"])
+
+                    for sub_key, sub_value in value.items():
+                        scope = sub_value[-1]
+                        break
+
                     separated_segments, separated_shift_difference, affected_item_index = split_text_to_scope(scope, current_line_clean_text, separated_shift_difference)
 
                     if c < l-1:
@@ -78,8 +82,10 @@ class TextPropertiesWrapper(PermissionHandler):
 
                         if item_index == affected_item_index:
                             font_color = value.get("font_color", ["black"])[0]
-                            # top = line.get("top", self.properties["default_top"]-(int(self.properties["default_line_height"])*down_by_current_line))
-                            # left = line.get("left", self.properties["default_left"])
+                            top = value.get("top", self.properties["default_top"]-(int(self.properties["default_line_height"])*down_by_current_line))
+                            left = value.get("left", self.properties["default_left"])
+
+                            # object.setTextOrigin(int(left), int(top))
                             object.setFillColor(font_color)
                             object.textOut(separated_segments[item_index])
 

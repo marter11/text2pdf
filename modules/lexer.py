@@ -9,6 +9,7 @@ class ParseTokens(object):
     def __init__(self, data):
         self._data = data
         self.parsed = {}
+        self.filter_white_global_lines = []
 
     # Parse data and dump it to an easily readable dict
     def parse(self):
@@ -48,12 +49,9 @@ class ParseTokens(object):
                         filter_white_global_lines.append(i)
 
                     cleaned_data[i] = "".join(text_segment_without_parameters_parse)
-
                     unique_index += 1
 
-        # Remove empty lines after parameters removed
-        for index in filter_white_global_lines:
-            cleaned_data.pop(index)
+        self.filter_white_global_lines = filter_white_global_lines
 
         # DEBUG:
         # How to give font and color to the same part of text

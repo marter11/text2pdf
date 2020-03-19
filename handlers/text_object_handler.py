@@ -46,20 +46,22 @@ class PDFHandler(TextPropertiesWrapper):
                 newline_top = int(properties["default_top"])-(int(properties["default_line_height"])*down_by_current_line)
 
             # This rack of code sets to default after every change
-            self.textObject.setTextOrigin(int(properties["default_left"]), newline_top)
-            self.textObject.setFillColor(self.properties["default_font_color"])
-            self.textObject.setFont(self.properties["default_font_family"], int(self.properties["default_font_size"]))
+            if current_line not in self.filtered_white_global_lines:
+                self.textObject.setTextOrigin(int(properties["default_left"]), newline_top)
+                self.textObject.setFillColor(self.properties["default_font_color"])
+                self.textObject.setFont(self.properties["default_font_family"], int(self.properties["default_font_size"]))
 
-            self.textObject = self.change_properties(self.textObject, current_line, down_by_current_line)
+                self.textObject = self.change_properties(self.textObject, current_line, down_by_current_line)
 
-            if self.text_out:
-                self.textObject.textOut(self.cleaned_data[current_line])
-            else:
-                pass
+                if self.text_out:
+                    self.textObject.textOut(self.cleaned_data[current_line])
+                else:
+                    pass
 
-            handler.drawText(self.textObject)
+                handler.drawText(self.textObject)
+                down_by_current_line += 1
 
             current_line += 1
-            down_by_current_line += 1
+
 
         handler.save()

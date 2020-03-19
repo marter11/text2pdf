@@ -29,5 +29,6 @@ class FileHandler(TextFileHandler, PDFHandler):
         object = ParseTokens(raw_text)
         self.cleaned_data, self.data = object.parse()
         self.parsed = object.parsed
+        self.filtered_white_global_lines = object.filter_white_global_lines
 
         return self

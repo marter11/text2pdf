@@ -3,33 +3,60 @@
 
 It requires python3 and at least reportlab 3.5.30 library.
 
-### Convert plain text to PDF from shell
+### Convert plain text to PDF from terminal
 
 python3 convert.py txt_path/text_name.txt pdf_path/pdf_name.pdf
 If pdf_name isn't specified then the text_name will be used as pdf_name.
 
-### Use as a module
+### Manipulate text output manually
 
-If you want to use it as a module you should call the
+There are three categories of text manipulation: global, line, segment.
+Every parameter must be between these signs: < >
+After the < must have !# it will look like this: <!# >
+Must contain a value if it is not a special option.
+But the different categories could have different starting, see below.
 
-### Manipulate text output
+### Global declaration
 
-If you want to declear properties globally do it in the top of the document and after you've done
-separate them with an empty line.
-Every global declearation should start with <!#~here_the_parameter>
+It must include a parameter name and a value to that parameter.
+Should be at the top of the text and an empty line between the declaration and the actual text.
+Has a little difference here, the ~ sign.
 
-"
-<!#color "color name">
+Example: <!#~parameter value>
 
-Text goes here.
-And here.
-"
+This declaration impose the properties of the rest of the document.
+This could be overridden by the line and segment declaration
 
-Used to particular lines, segments:
+### Line declaration
 
-<!#middle> center text to the middle of the page
-<!#title> for centering the title horizontally
-<!#color "color name">Text here</!#> for coloring text
+It must be declared at the beginning of the line.
+
+It has special options:
+   <!#title> - center the selected line
+   <!#new_page> - writes everything to a new page after this is called
+
+Example: <!#title> Text goes here!
+         <!#font_color red> And here also!
+
+This could be overridden by the segment declaration.
+
+### Segment declaration
+
+It must contain a closing tag <!#>
+It'll look like this: <!#parameter value>Text here<!#>
+Selects the text segment and apply options to it based on the parameter.
+
+### All available parameters
+
+Only line parameter:
+    title - position the text to middle
+    new_line - start new line
+
+font_color - changes the text color
+font_size - changes the font size
+line_height - space between the lines
+left - positioning horizontally
+top - positioning vertically
 
 ### Automate text manipulation process (without parameters)
 
@@ -38,3 +65,7 @@ the working environment size in pixels withe the <!#size> parameters
 
 It regards the spaces as text decorators.
 If the text overextends then automatically splits the text.
+
+### Restrictions
+
+Only accepts ASCII.

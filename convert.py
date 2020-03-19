@@ -14,10 +14,14 @@ if __name__ == "__main__":
 
     elif l >= 3:
         src, dest = sys.argv[1], sys.argv[2]
+
         try:
             os.chdir(dest)
         except:
-            name = dest.split("/")[-1]
+            split = dest.split("/")
+            name = split[-1]
+            split.pop(-1)
+            os.chdir("/".join(split))
         else:
             name = src.split("/")[-1]
 
